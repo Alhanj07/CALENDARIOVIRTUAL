@@ -267,23 +267,27 @@
 
         // Marcar tarea como completada
         doneButton.addEventListener('click', function() {
-            if (!currentDay.querySelector('.checkmark') && !currentDay.querySelector('.cross')) { // Verifica que no haya marca previa
+            if (!currentDay.querySelector('.checkmark') && !currentDay.querySelector('.cross')) {
                 const checkmark = document.createElement('span');
                 checkmark.textContent = '✔️';
                 currentDay.appendChild(checkmark);
                 taskPopup.style.display = 'none';
                 currentDay.style.pointerEvents = 'none'; // Bloquea la interacción después de marcar
+                // Guardar el estado en localStorage
+                localStorage.setItem(currentDay.id, 'done');
             }
         });
 
         // Marcar tarea como no completada
         notDoneButton.addEventListener('click', function() {
-            if (!currentDay.querySelector('.checkmark') && !currentDay.querySelector('.cross')) { // Verifica que no haya marca previa
+            if (!currentDay.querySelector('.checkmark') && !currentDay.querySelector('.cross')) {
                 const cross = document.createElement('span');
                 cross.textContent = '❌';
                 currentDay.appendChild(cross);
                 taskPopup.style.display = 'none';
                 currentDay.style.pointerEvents = 'none'; // Bloquea la interacción después de marcar
+                // Guardar el estado en localStorage
+                localStorage.setItem(currentDay.id, 'not-done');
             }
         });
 
@@ -293,6 +297,20 @@
             day.addEventListener('click', function() {
                 showTaskPopup(day);
             });
+
+            // Verificar el estado de cada día al cargar la página
+            const storedState = localStorage.getItem(day.id);
+            if (storedState === 'done') {
+                const checkmark = document.createElement('span');
+                checkmark.textContent = '✔️';
+                day.appendChild(checkmark);
+                day.style.pointerEvents = 'none'; // Bloquea la interacción después de marcar
+            } else if (storedState === 'not-done') {
+                const cross = document.createElement('span');
+                cross.textContent = '❌';
+                day.appendChild(cross);
+                day.style.pointerEvents = 'none'; // Bloquea la interacción después de marcar
+            }
         });
     </script>
 </body>
