@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #E6CCFF; /* Fondo lila */
+            background-color: #E6CCFF;
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,11 +17,10 @@
             min-height: 100vh;
         }
 
-        /* Título principal */
         header h1 {
             font-size: 36px;
             text-align: center;
-            color: #6A3E9F; /* Un morado más oscuro para el título */
+            color: #6A3E9F;
             margin-bottom: 20px;
         }
 
@@ -39,7 +38,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             width: 100%;
-            max-width: 400px; /* Ancho máximo para que no crezca demasiado */
+            max-width: 400px;
         }
 
         .calendar {
@@ -73,34 +72,29 @@
             background-color: transparent;
         }
 
-        /* Modal */
-        .modal {
+        .checkmark, .cross {
+            font-size: 20px;
+        }
+
+        .cross {
+            color: red;
+        }
+
+        .task-popup {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
-        }
-
-        .modal-content {
-            background-color: white;
+            position: absolute;
+            background-color: #fff;
             padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            animation: slideUp 0.5s forwards;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            z-index: 10;
         }
 
-        .modal button {
-            margin-top: 20px;
-            padding: 10px 20px;
+        .task-popup button {
+            margin-top: 10px;
+            padding: 8px;
             background-color: #6A3E9F;
             color: white;
             border: none;
@@ -108,35 +102,17 @@
             cursor: pointer;
         }
 
-        .modal button:hover {
+        .task-popup button:hover {
             background-color: #9A6FB0;
         }
 
-        /* Animaciones */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .task-popup .action {
+            margin-top: 15px;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Media Queries para móvil */
         @media (max-width: 768px) {
             header h1 {
-                font-size: 28px; /* Reducir tamaño del título en móviles */
+                font-size: 28px;
             }
 
             .calendar-wrapper {
@@ -146,19 +122,18 @@
             }
 
             .calendar-container {
-                width: 90%; /* Hacer que los calendarios ocupen más espacio en pantallas pequeñas */
+                width: 90%;
                 max-width: none;
             }
 
             .days {
-                grid-template-columns: repeat(5, 1fr); /* Mostrar solo 5 días por fila en pantallas pequeñas */
+                grid-template-columns: repeat(5, 1fr);
             }
         }
 
-        /* Media Queries para pantallas grandes (PC) */
         @media (min-width: 769px) {
             .calendar-wrapper {
-                flex-direction: row; /* Mostrar calendarios en fila en pantallas más grandes */
+                flex-direction: row;
                 gap: 20px;
             }
         }
@@ -200,10 +175,10 @@
                     <div class="day" id="day-23">23</div>
                     <div class="day" id="day-24">24</div>
                     <div class="day" id="day-25">25</div>
-                    <div class="day" id="day-26">⚽ 26</div> <!-- Agregado -->
+                    <div class="day" id="day-26">⚽ 26</div>
                     <div class="day" id="day-27">27</div>
                     <div class="day" id="day-28">28</div>
-                    <div class="day" id="day-29">⚽ 29</div> <!-- Agregado -->
+                    <div class="day" id="day-29">⚽ 29</div>
                     <div class="day" id="day-30">🧩 30</div>
                     <div class="day" id="day-31">🍿 31</div>
                 </div>
@@ -214,112 +189,111 @@
         <div class="calendar-container">
             <div class="calendar">
                 <div class="days">
-                    <div class="day"></div> <!-- Espacio vacío para el primer día (sábado) -->
-                    <div class="day"></div> <!-- Espacio vacío para el 2 -->
-                    <div class="day" id="day-1-feb">1</div> <!-- Sábado -->
-                    <div class="day" id="day-2-feb">2</div> <!-- Domingo -->
-                    <div class="day" id="day-3-feb">🍫 3</div> <!-- Lunes -->
+                    <div class="day"></div>
+                    <div class="day"></div>
+                    <div class="day" id="day-1-feb">1</div>
+                    <div class="day" id="day-2-feb">2</div>
+                    <div class="day" id="day-3-feb">🍫 3</div>
                     <div class="day" id="day-4-feb">4</div>
                     <div class="day" id="day-5-feb">5</div>
                     <div class="day" id="day-6-feb">6</div>
-                    <div class="day" id="day-7-feb">🎂 7</div> <!-- Viernes -->
-                    <div class="day" id="day-8-feb">🎶 8</div> <!-- Sábado -->
+                    <div class="day" id="day-7-feb">🎂 7</div>
+                    <div class="day" id="day-8-feb">🎶 8</div>
                     <div class="day" id="day-9-feb">9</div>
                     <div class="day" id="day-10-feb">10</div>
                     <div class="day" id="day-11-feb">11</div>
                     <div class="day" id="day-12-feb">12</div>
                     <div class="day" id="day-13-feb">13</div>
-                    <div class="day" id="day-14-feb">🍿 14</div> <!-- Viernes -->
+                    <div class="day" id="day-14-feb">🍿 14</div>
                     <div class="day" id="day-15-feb">15</div>
                     <div class="day" id="day-16-feb">16</div>
                     <div class="day" id="day-17-feb">17</div>
                     <div class="day" id="day-18-feb">18</div>
                     <div class="day" id="day-19-feb">19</div>
-                    <div class="day" id="day-20-feb">🎮 20</div> <!-- Jueguitos -->
-                    <div class="day" id="day-21-feb">🍿 21</div> <!-- Viernes -->
+                    <div class="day" id="day-20-feb">🎮 20</div>
+                    <div class="day" id="day-21-feb">🍿 21</div>
                     <div class="day" id="day-22-feb">22</div>
                     <div class="day" id="day-23-feb">23</div>
                     <div class="day" id="day-24-feb">24</div>
                     <div class="day" id="day-25-feb">25</div>
                     <div class="day" id="day-26-feb">26</div>
                     <div class="day" id="day-27-feb">27</div>
-                    <div class="day" id="day-28-feb">🍿 28</div> <!-- Viernes -->
+                    <div class="day" id="day-28-feb">🍿 28</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <p id="modal-message">Mensaje del día</p>
-            <button id="close-modal">Cerrar</button>
+    <!-- Pop-up de la tarea -->
+    <div id="task-popup" class="task-popup">
+        <p id="task-message">Mensaje de tarea</p>
+        <div class="action">
+            <button id="done-button">✔️</button>
+            <button id="not-done-button">❌</button>
         </div>
     </div>
 
     <script>
-        // Mensajes para las fechas específicas
         const daysWithMessage = {
-            'day-31': "Ver películas si quieres y obvio si puedes", // 31 de enero
-            'day-7-feb': "Tu cumpleaños el día más bonito", // 7 de febrero
-            'day-14-feb': "Ver películas si quieres y obvio si puedes", // 14 de febrero
-            'day-21-feb': "Ver películas si quieres y obvio si puedes", // 21 de febrero
-            'day-28-feb': "Ver películas si quieres y obvio si puedes",  // 28 de febrero
-            'day-30': "Armar los legos de Iron Man", // 30 de enero
-            'day-26': "Ver al Barcelona en Champions", // 26 de enero
-            'day-29': "Ver al Barcelona en Champions",  // 29 de enero
-            'day-3-feb': "Te daré un huevito kinder",  // 3 de febrero
-            'day-8-feb': "Just Dance, Jueguitos",  // 8 de febrero
-            'day-20-feb': "Jueguitos"  // 20 de febrero
+            'day-31': "Ver películas si quieres y obvio si puedes",
+            'day-7-feb': "Tu cumpleaños el día más bonito",
+            'day-14-feb': "Ver películas si quieres y obvio si puedes",
+            'day-21-feb': "Ver películas si quieres y obvio si puedes",
+            'day-28-feb': "Ver películas si quieres y obvio si puedes",
+            'day-30': "Armar los legos de Iron Man",
+            'day-26': "Ver al Barcelona en Champions",
+            'day-29': "Ver al Barcelona en Champions",
+            'day-3-feb': "Te daré un huevito kinder",
+            'day-8-feb': "Just Dance, Jueguitos",
+            'day-20-feb': "Jueguitos"
         };
 
-        // Función para agregar el mensaje de llamada
-        function getCallMessage(dayId) {
-            if (!daysWithMessage[dayId]) {
-                return "Llamada (claro si puedes)";  // Mensaje predeterminado para días sin fecha especial
+        const taskPopup = document.getElementById('task-popup');
+        const taskMessage = document.getElementById('task-message');
+        const doneButton = document.getElementById('done-button');
+        const notDoneButton = document.getElementById('not-done-button');
+        let currentDay = null;
+
+        // Mostrar el pop-up de la tarea con mensaje correspondiente
+        function showTaskPopup(dayElement) {
+            const dayId = dayElement.id;
+            const message = daysWithMessage[dayId] || "Llamada (claro si puedes)";
+            taskMessage.textContent = message;
+            taskPopup.style.display = 'block';
+            taskPopup.style.left = `${dayElement.offsetLeft}px`;
+            taskPopup.style.top = `${dayElement.offsetTop + dayElement.offsetHeight + 10}px`;
+            currentDay = dayElement;
+        }
+
+        // Marcar tarea como completada
+        doneButton.addEventListener('click', function() {
+            if (!currentDay.querySelector('.checkmark') && !currentDay.querySelector('.cross')) { // Verifica que no haya marca previa
+                const checkmark = document.createElement('span');
+                checkmark.textContent = '✔️';
+                currentDay.appendChild(checkmark);
+                taskPopup.style.display = 'none';
+                currentDay.style.pointerEvents = 'none'; // Bloquea la interacción después de marcar
             }
-            return daysWithMessage[dayId];
-        }
-
-        // Modal y su contenido
-        const modal = document.getElementById('modal');
-        const modalMessage = document.getElementById('modal-message');
-        const closeModal = document.getElementById('close-modal');
-
-        // Función para mostrar el modal con el mensaje correspondiente
-        function showModal(message) {
-            modalMessage.textContent = message;
-            modal.style.display = 'flex';
-        }
-
-        // Cerrar el modal
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
         });
 
-        // Función para manejar los clics y mostrar los mensajes correspondientes
-        for (let dayId in daysWithMessage) {
-            const dayElement = document.getElementById(dayId);
-            if (dayElement) {
-                dayElement.addEventListener('click', function() {
-                    const message = daysWithMessage[dayId];
-                    showModal(message);
-                });
+        // Marcar tarea como no completada
+        notDoneButton.addEventListener('click', function() {
+            if (!currentDay.querySelector('.checkmark') && !currentDay.querySelector('.cross')) { // Verifica que no haya marca previa
+                const cross = document.createElement('span');
+                cross.textContent = '❌';
+                currentDay.appendChild(cross);
+                taskPopup.style.display = 'none';
+                currentDay.style.pointerEvents = 'none'; // Bloquea la interacción después de marcar
             }
-        }
+        });
 
-        // Agregar el mensaje de llamada en todos los días
+        // Asignar evento a los días
         const allDays = document.querySelectorAll('.day');
         allDays.forEach(day => {
-            const dayId = day.id;
-            if (dayId) {
-                day.addEventListener('click', function() {
-                    const message = getCallMessage(dayId);
-                    showModal(message);
-                });
-            }
+            day.addEventListener('click', function() {
+                showTaskPopup(day);
+            });
         });
-
     </script>
 </body>
 </html>
